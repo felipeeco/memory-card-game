@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+// App.js
+import React, { useState } from 'react';
 import './App.css';
+import Card from './card.js';
 
-function App() {
+const cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+const App = () => {
+  const [cards, setCards] = useState(generateCards());
+
+  function generateCards() {
+    const shuffledValues = [...cardValues, ...cardValues].sort(() => Math.random() - 0.5);
+    const selectedValues = shuffledValues.slice(0, 15);
+    return selectedValues.map((value, index) => ({ id: index, value, isFlipped: false }));
+  }
+  
+
+  function handleCardClick(clickedCard) {
+    const updatedCards = cards.map(card =>
+      card.id === clickedCard.id ? { ...card, isFlipped: true } : card
+    );
+
+    setCards(updatedCards);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container text-center">
+        <div className='row justify-content-center align-items-center'>
+          {cards.map(card => (
+            <Card key={card.id} card={card} onClick={handleCardClick} />
+          ))}
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Card.css */
+.card {
+  height: 150px;
+  background-color: #ddd;
+  margin: 5px;
+  display: inline-block;
+  cursor: pointer;
+  
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 24px;
+  }
+
+  &--flipped {
+    background-color: #fff;
+  }
+}
+
