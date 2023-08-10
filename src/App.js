@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Card from './card.js';
 
-const cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-
 const App = () => {
-  const [cards, setCards] = useState(generateCards());
+  const [cards, setCards] = useState([]);
 
 
   useEffect(()=> {
@@ -15,20 +13,13 @@ const App = () => {
     .then(data => {
       const shuffledValues = [...data?.entries, ...data?.entries].sort(() => Math.random() - 0.5);
       const selectedValues = shuffledValues.slice(0, 15);
-      console.log(selectedValues);
-      return selectedValues.map((value, index) => ({ id: index, value, isFlipped: false }));
+      const filteredValues = selectedValues.map((value, index) => ({ id: index, value, isFlipped: false }));
+      setCards(filteredValues);
     })
     .catch(error => {
-      
       console.error("Error fetching data:", error);
     });
   }, []); 
-
-  function generateCards() {
-    const shuffledValues = [...cardValues, ...cardValues].sort(() => Math.random() - 0.5);
-    const selectedValues = shuffledValues.slice(0, 15);
-    return selectedValues.map((value, index) => ({ id: index, value, isFlipped: false }));
-  }
   
   function handleCardClick(clickedCard) {
     const updatedCards = cards.map(card =>
@@ -38,12 +29,13 @@ const App = () => {
     setCards(updatedCards);
   }
 
+  console.log(cards);
   return (
     <div className="App">
       <div className="container text-center">
         <div className='row justify-content-center align-items-center'>
           <h3>Aciertos: 3 - Errores: 2</h3>
-          {cards.map(card => (
+          {cards && cards.map(card => (
             <Card key={card.id} card={card} onClick={handleCardClick} />
           ))}
         </div>
