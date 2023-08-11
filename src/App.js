@@ -14,7 +14,12 @@ const App = () => {
     .then(response => response.json())
     .then(data => {
       const shuffledValues = [...data?.entries, ...data?.entries].sort(() => Math.random() - 0.5);
-      const filteredValues = shuffledValues.map((value, index) => ({ id: index, value, isFlipped: false, isEqual: false }));
+      const filteredValues = shuffledValues.map((value, index) => ({ 
+        id: index, 
+        value, 
+        isFlipped: false, 
+        isEqual: false, 
+      }));
       setCards(filteredValues);
     })
     .catch(error => {
@@ -28,7 +33,7 @@ const App = () => {
     let countIsFlippedCards = 0;
 
     updatedCards = cards.map(card =>
-      card.id === clickedCard.id ? { ...card, isFlipped: true } : card
+      card?.id === clickedCard?.id ? { ...card, isFlipped: true } : card
     )
 
     updatedCards.forEach((currentValue) => {
@@ -69,9 +74,6 @@ const App = () => {
       }
     }
 
-    console.log(updatedCards);
-    console.log(countIsFlippedCards)
-
     setCards(updatedCards);
   }
 
@@ -81,7 +83,7 @@ const App = () => {
         <div className='row justify-content-center align-items-center'>
           <h3>Aciertos: {success} - Errores: {fail}</h3>
           {cards && cards.map(card => (
-            <Card key={card.id} card={card} onClick={handleCardClick} />
+            <Card key={card?.id} card={card} onClick={handleCardClick} />
           ))}
         </div>
       </div>
