@@ -21,8 +21,8 @@ code {
   height: 150px;
   background-color: #ddd;
   margin: 5px;
-  display: inline-block;
   cursor: pointer;
+  overflow: hidden;
   
   &__content {
     display: flex;
@@ -38,6 +38,12 @@ code {
 
 .card--Noflipped .card__content {
   font-size: 90px;
+}
+
+.card__content img {
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 
